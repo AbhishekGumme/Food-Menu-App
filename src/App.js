@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Filters from "./components/Filters";
+import Footer from "./components/Footer";
+import FoodItems from "./components/FoodItems";
+import './App.css'; 
+
+
 
 function App() {
+  const [selectedFilters, setSelectedFilters] = useState({ area: '', sortBy: 'alphabetical' });
+
+  const handleFilterChange = (filters) => {
+    setSelectedFilters(filters);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Filters onFilterChange={handleFilterChange} />
+      <FoodItems selectedArea={selectedFilters.area} sortBy={selectedFilters.sortBy} />
+      <Footer />
     </div>
   );
 }
